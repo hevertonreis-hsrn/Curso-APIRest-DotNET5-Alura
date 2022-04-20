@@ -1,0 +1,5 @@
+*.vs
+*packages
+
+FilmesAPI/FilmesAPI/bin
+FilmesAPI/FilmesAPI/obj
