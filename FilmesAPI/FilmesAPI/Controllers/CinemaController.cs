@@ -3,12 +3,13 @@ using FilmesAPI.Data;
 using FilmesAPI.Data.Dtos;
 using FilmesAPI.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace FilmesAPI.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class CinemaController : ControllerBase
     {
         private AppDbContext _context;

@@ -24,6 +24,7 @@ namespace FilmesAPI
         {
             services.AddDbContext<AppDbContext>(
                 opts => opts
+                .UseLazyLoadingProxies()
                 .UseMySQL(
                     Configuration
                     .GetConnectionString("FilmeConnection")
