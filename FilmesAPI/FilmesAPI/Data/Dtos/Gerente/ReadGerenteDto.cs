@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FilmesAPI.Models;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FilmesAPI.Data.Dtos
 {
@@ -8,5 +10,6 @@ namespace FilmesAPI.Data.Dtos
         [Required]
         public int Id { get; set; }
         public string Nome { get; set; }
+        public object Cinemas { get; set; }
     }
 }
