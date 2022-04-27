@@ -16,6 +16,6 @@ namespace FilmesAPI.Models
         public string Genero { get; set; }
         [Range(1, 600, ErrorMessage = "A 'Duração' é no mínimo 1 e no máximo 600 minutos")]
         public int Duracao { get; set; }
-        public virtual List<Cinema> Cinemas { get; set; }
+        public virtual List<Sessao> Sessoes { get; set; }
     }
 }
