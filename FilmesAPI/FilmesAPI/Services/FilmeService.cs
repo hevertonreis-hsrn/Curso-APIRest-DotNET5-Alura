@@ -68,9 +68,27 @@ namespace FilmesAPI.Services
             
         }
 
-        internal ReadFilmeDto RecuperaFilmesPorId(int v, int id)
+        public ReadFilmeDto RecuperaFilmesPorId(int id)
         {
-            throw new NotImplementedException();
+            Filme filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
+
+            if (filme != null)
+            {
+                //ReadFilmeDto filmeDto = new ReadFilmeDto
+                //{
+                //    Titulo = filme.Titulo,
+                //    Diretor = filme.Diretor,
+                //    Genero = filme.Genero,
+                //    Duracao = filme.Duracao,
+                //    Id = filme.Id,
+                //    HoraDaConsulta = DateTime.Now
+                //};
+                ReadFilmeDto filmeDto = _mapper.Map<ReadFilmeDto>(filme);
+
+                return filmeDto;
+            }
+
+            return null;
         }
     }
 }

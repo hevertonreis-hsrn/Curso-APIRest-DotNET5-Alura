@@ -29,7 +29,7 @@ namespace FilmesAPI.Controllers
         {
             ReadFilmeDto readDto = _filmeService.AdicionaFilme(filmeDto);
             
-            return CreatedAtAction(nameof(RecuperaFilmePorId), new { Id = readDto.Id}, readDto );
+            return CreatedAtAction(nameof(RecuperaFilmesPorId), new { Id = readDto.Id}, readDto );
         }
 
         [HttpGet]
@@ -43,26 +43,9 @@ namespace FilmesAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult RecuperaFilmesPorId(int id)
         {
-            ReadFilmeDto readDto = _filmeService.RecuperaFilmesPorId(int id);
-            //Filme filme = filmes.FirstOrDefault(filme => filme.Id == id);
+            ReadFilmeDto readDto = _filmeService.RecuperaFilmesPorId(id);
 
-            Filme filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
-
-            if (filme != null)
-            {
-                //ReadFilmeDto filmeDto = new ReadFilmeDto
-                //{
-                //    Titulo = filme.Titulo,
-                //    Diretor = filme.Diretor,
-                //    Genero = filme.Genero,
-                //    Duracao = filme.Duracao,
-                //    Id = filme.Id,
-                //    HoraDaConsulta = DateTime.Now
-                //};
-                ReadFilmeDto filmeDto = _mapper.Map<ReadFilmeDto>(filme);
-
-                return Ok(filmeDto);
-            }
+            if (readDto != null) return Ok(readDto);            
 
             return NotFound();
         }
