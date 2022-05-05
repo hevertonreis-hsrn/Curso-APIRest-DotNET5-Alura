@@ -1,4 +1,5 @@
 using FilmesAPI.Data;
+using FilmesAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,11 @@ namespace FilmesAPI
                     Configuration
                     .GetConnectionString("FilmeConnection")
                     ));
+            services.AddScoped<FilmeService, FilmeService>();
+            services.AddScoped<CinemaService, CinemaService>();
+            services.AddScoped<EnderecoService, EnderecoService>();
+            services.AddScoped<SessaoService, SessaoService>();
+            services.AddScoped<GerenteService, GerenteService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
