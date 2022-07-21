@@ -36,6 +36,7 @@ namespace UsuariosAPI
                 .AddDefaultTokenProviders();
             services.AddScoped<LogoutService, LogoutService>();
             services.AddScoped<CadastroService, CadastroService>();
+            services.AddScoped<EmailService, EmailService>();
             services.AddScoped<TokenService, TokenService>();
             services.AddScoped<LoginService, LoginService>();
             services.AddControllers();

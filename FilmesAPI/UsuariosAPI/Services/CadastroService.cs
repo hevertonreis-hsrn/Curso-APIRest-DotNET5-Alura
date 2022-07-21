@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using UsuariosAPI.Data.Dtos;
 using UsuariosAPI.Data.Requests;
 using UsuariosAPI.Models;
@@ -33,11 +34,13 @@ namespace UsuariosAPI.Services
             {
                 string code = _userManager
                     .GenerateEmailConfirmationTokenAsync(usuarioIdentity).Result;
+                var encodedCode = HttpUtility.UrlEncode(code);
+
                 _emailService.EnviarEmail(
                     new[] { usuarioIdentity.Email },
                     "Link de Ativação",
                     usuarioIdentity.Id,
-                    code
+                    encodedCode
                     );
                 return Result.Ok().WithSuccess(code);
             }

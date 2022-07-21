@@ -35,8 +35,17 @@ namespace UsuariosAPI.Services
             {
                 try
                 {
-                    client.Connect(_configuration.GetValue<string>("EmailSettings:SmtpServer"));
-
+                 
+                    client.Connect(
+                        _configuration.GetValue<string>("EmailSettings:SmtpServer"),
+                        _configuration.GetValue<int>("EmailSettings:Port"), true
+                        );
+                    client.AuthenticationMechanisms.Remove("XOAUTH2");
+                    client.Authenticate(
+                        _configuration.GetValue<string>("EmailSettings:Username"),
+                        _configuration.GetValue<string>("EmailSettings:Password")
+                        );
+                    
                     client.Send(mensagemDeEmail);
                 }
                 catch (System.Exception)
@@ -55,7 +64,9 @@ namespace UsuariosAPI.Services
         private MimeMessage CriaCorpoDoEmail(Mensagem mensagem)
         {
             var mensagemDeEmail = new MimeMessage();
-            mensagemDeEmail.From.Add(new MailboxAddress("remetente"));
+            mensagemDeEmail.From.Add(new MailboxAddress(
+                _configuration.GetValue<string>("EmailSettings:From")
+                ));
             mensagemDeEmail.To.AddRange(mensagem.Destinatario);
             mensagemDeEmail.Subject = mensagem.Assunto;
             mensagemDeEmail.Body = new TextPart(MimeKit.Text.TextFormat.Text)
