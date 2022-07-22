@@ -1,4 +1,5 @@
 ﻿using MailKit.Net.Smtp;
+using MailKit.Security;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 using UsuariosAPI.Models;
@@ -38,7 +39,7 @@ namespace UsuariosAPI.Services
                  
                     client.Connect(
                         _configuration.GetValue<string>("EmailSettings:SmtpServer"),
-                        _configuration.GetValue<int>("EmailSettings:Port"), true
+                        _configuration.GetValue<int>("EmailSettings:Port"), SecureSocketOptions.StartTls
                         );
                     client.AuthenticationMechanisms.Remove("XOAUTH2");
                     client.Authenticate(
@@ -59,22 +60,23 @@ namespace UsuariosAPI.Services
                     client.Dispose();
                 }
             }
+            
         }
-
         private MimeMessage CriaCorpoDoEmail(Mensagem mensagem)
         {
             var mensagemDeEmail = new MimeMessage();
-            mensagemDeEmail.From.Add(new MailboxAddress(
+            mensagemDeEmail.From.Add(new MailboxAddress("Heverton",
                 _configuration.GetValue<string>("EmailSettings:From")
                 ));
             mensagemDeEmail.To.AddRange(mensagem.Destinatario);
             mensagemDeEmail.Subject = mensagem.Assunto;
-            mensagemDeEmail.Body = new TextPart(MimeKit.Text.TextFormat.Text)
+            mensagemDeEmail.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
                 Text = mensagem.Conteudo
             };
 
             return mensagemDeEmail;
         }
+
     }
 }
