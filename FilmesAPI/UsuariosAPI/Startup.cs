@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using UsuariosAPI.Data;
+using UsuariosAPI.Models;
 using UsuariosAPI.Services;
 
 namespace UsuariosAPI
@@ -29,7 +30,7 @@ namespace UsuariosAPI
             services.AddDbContext<UserDbContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("UsuarioConnection"))
             );
-            services.AddIdentity<IdentityUser<int>, IdentityRole<int> >(
+            services.AddIdentity<CustomIdentityUser, IdentityRole<int> >(
                 opt => opt.SignIn.RequireConfirmedEmail = true    
                 )
                 .AddEntityFrameworkStores<UserDbContext>()
